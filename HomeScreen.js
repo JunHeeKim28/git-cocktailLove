@@ -1,13 +1,14 @@
-import React from "react";
 import { StatusBar } from "expo-status-bar";
 import { TouchableOpacity, Image, StyleSheet, Text, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { Header } from "@react-navigation/stack";
 
 export default function HomeScreen() {
   const navigation = useNavigation();
   const goToLoginScreen = () => {
     navigation.navigate("Login");
+  };
+  const goToRegisterScreen = () => {
+    navigation.navigate("Register");
   };
   return (
     <View style={styles.container}>
@@ -22,7 +23,9 @@ export default function HomeScreen() {
           </Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.btn1}>
-          <Text style={styles.btnText1}>회원가입</Text>
+          <Text style={styles.btnText1} onPress={goToRegisterScreen}>
+            회원가입
+          </Text>
         </TouchableOpacity>
       </View>
 

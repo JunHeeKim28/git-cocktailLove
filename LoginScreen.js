@@ -1,4 +1,5 @@
 import { StatusBar } from "expo-status-bar";
+import { useState } from "react";
 import {
   TextInput,
   Image,
@@ -7,9 +8,16 @@ import {
   Text,
   View,
 } from "react-native";
-import { useNavigation } from "@react-navigation/native";
 
-export default function LoginScreen() {
+const LoginScreen = ({ navigation }) => {
+  const [userId, setUserId] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleLogin = () => {
+    console.log("아이디: ", userId);
+    console.log("비밀번호: ", password);
+  };
+
   return (
     <View style={styles.container}>
       <Image
@@ -18,19 +26,24 @@ export default function LoginScreen() {
       />
       <TextInput
         style={styles.input}
+        value={userId}
         placeholder="아이디"
         placeholderTextColor="gray"
+        onChangeText={(text) => setUserId(text)}
       />
 
       <TextInput
         style={styles.input}
         placeholder="비밀번호"
         placeholderTextColor="gray"
+        onChangeText={(text) => setPassword(text)}
         secureTextEntry={true} // 비번 입력 시 별 표시
       />
 
       <TouchableOpacity style={styles.loginButton}>
-        <Text style={styles.loginButtonText}>로그인</Text>
+        <Text style={styles.loginButtonText} onPress={handleLogin}>
+          로그인
+        </Text>
       </TouchableOpacity>
       <View style={styles.buttonContainer}>
         <TouchableOpacity style={styles.btn2}>
@@ -41,9 +54,10 @@ export default function LoginScreen() {
           <Text style={styles.btnText2}>비밀번호 찾기</Text>
         </TouchableOpacity>
       </View>
+      <StatusBar style="auto" />
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -97,3 +111,5 @@ const styles = StyleSheet.create({
     marginBottom: "20",
   },
 });
+
+export default LoginScreen;
