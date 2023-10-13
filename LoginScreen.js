@@ -10,6 +10,11 @@ import {
 } from "react-native";
 
 const LoginScreen = ({ navigation }) => {
+  /*const navigation = useNavigation();
+  const goToLoginScreen = () => {
+    navigation.navigate("Login");
+  };*/
+
   const [userId, setUserId] = useState("");
   const [password, setPassword] = useState("");
 
@@ -41,7 +46,11 @@ const LoginScreen = ({ navigation }) => {
       />
 
       <TouchableOpacity style={styles.loginButton}>
-        <Text style={styles.loginButtonText} onPress={handleLogin}>
+        <Text
+          style={styles.loginButtonText}
+          onPress={handleLogin}
+          //회원정보에 없는 아이디나 비밀번호를 입력하면 로그인 불가 알림창 뜸
+        >
           로그인
         </Text>
       </TouchableOpacity>
