@@ -1,6 +1,11 @@
 import { useState } from "react";
-import { View, Text, TextInput, Button, StyleSheet } from "react-native";
-import { ScrollView } from "react-native-web";
+import {
+  View,
+  Text,
+  TextInput,
+  StyleSheet,
+  TouchableOpacity,
+} from "react-native";
 
 const RegisterScreen = ({ navigation }) => {
   const [nickname, setNickname] = useState("");
@@ -50,14 +55,18 @@ const RegisterScreen = ({ navigation }) => {
         onChangeText={(text) => setEmail(text)}
         keyboardType="email-address"
       />
-
-      <Button title="회원가입" onPress={handleRegister} />
-
-      {/* 다른 화면으로 이동하는 버튼 */}
-      <Button
-        title="로그인 화면으로 이동"
-        onPress={() => navigation.navigate("Login")}
-      />
+      <View style={styles.registerbtnContainer}>
+        <TouchableOpacity style={styles.registerbtn}>
+          <Text
+            style={styles.registerbtnText}
+            onPress={handleRegister}
+            //onPress={() => navigation.navigate("Login")}
+            //이메일 또는 아이디가 이미 디비에 저장되어 있다면 회원가입 안됨
+          >
+            회원가입
+          </Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
@@ -66,7 +75,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#000000",
-    //justifyContent: "center",
     padding: 20,
   },
   label: {
@@ -81,6 +89,26 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     marginBottom: 10,
     paddingHorizontal: 10,
+    color: "white",
+  },
+  registerbtnContainer: {
+    flex: 1,
+    //justifyContent: "center", // 수직 중앙 정렬
+    alignItems: "center", // 수평 중앙 정렬
+  },
+  registerbtn: {
+    backgroundColor: "#be289d",
+    paddingVertical: 12,
+    borderRadius: 10,
+    marginHorizontal: 5,
+    height: 50,
+    width: 100,
+    marginBottom: 20,
+  },
+  registerbtnText: {
+    color: "#fff",
+    fontSize: 20,
+    textAlign: "center",
   },
 });
 

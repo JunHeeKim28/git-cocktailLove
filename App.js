@@ -4,7 +4,6 @@ import HomeScreen from "./HomeScreen";
 import LoginScreen from "./LoginScreen";
 import RegisterScreen from "./RegisterScreen";
 import MainScreen from "./MainScreen";
-
 const Stack = createStackNavigator();
 
 export default function App() {

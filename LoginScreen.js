@@ -82,12 +82,13 @@ const styles = StyleSheet.create({
   },
   loginButton: {
     backgroundColor: "#be289d",
-    paddingVertical: 15,
+    paddingVertical: 12,
     borderRadius: 10,
     marginHorizontal: 5,
     height: 50,
     width: 100,
     marginBottom: 20,
+    alignContent: "center",
   },
   loginButtonText: {
     color: "#fff",
