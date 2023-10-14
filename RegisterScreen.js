@@ -5,13 +5,16 @@ import {
   TextInput,
   StyleSheet,
   TouchableOpacity,
+  KeyboardAvoidingView,
 } from "react-native";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 const RegisterScreen = ({ navigation }) => {
   const [nickname, setNickname] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
 
   const handleRegister = () => {
     // 여기에서 회원가입 로직을 구현합니다.
@@ -32,14 +35,12 @@ const RegisterScreen = ({ navigation }) => {
         value={nickname}
         onChangeText={(text) => setNickname(text)}
       />
-
       <Text style={styles.label}>아이디</Text>
       <TextInput
         style={styles.input}
         value={username}
         onChangeText={(text) => setUsername(text)}
       />
-
       <Text style={styles.label}>비밀번호</Text>
       <TextInput
         style={styles.input}
@@ -47,7 +48,6 @@ const RegisterScreen = ({ navigation }) => {
         onChangeText={(text) => setPassword(text)}
         secureTextEntry
       />
-
       <Text style={styles.label}>이메일</Text>
       <TextInput
         style={styles.input}
@@ -55,12 +55,19 @@ const RegisterScreen = ({ navigation }) => {
         onChangeText={(text) => setEmail(text)}
         keyboardType="email-address"
       />
+      <Text style={styles.label}>전화번호</Text>
+      <TextInput
+        style={styles.input}
+        value={phone}
+        onChangeText={(text) => setPhone(text)}
+        keyboardType="numeric"
+      />
       <View style={styles.registerbtnContainer}>
         <TouchableOpacity style={styles.registerbtn}>
           <Text
             style={styles.registerbtnText}
-            onPress={handleRegister}
-            //onPress={() => navigation.navigate("Login")}
+            //onPress={handleRegister}
+            onPress={() => navigation.navigate("Login")}
             //이메일 또는 아이디가 이미 디비에 저장되어 있다면 회원가입 안됨
           >
             회원가입

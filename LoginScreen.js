@@ -8,13 +8,10 @@ import {
   Text,
   View,
 } from "react-native";
+//import { useNavigation } from "@react-navigation/native";
 
+//export default function LoginScreen() {
 const LoginScreen = ({ navigation }) => {
-  /*const navigation = useNavigation();
-  const goToLoginScreen = () => {
-    navigation.navigate("Login");
-  };*/
-
   const [userId, setUserId] = useState("");
   const [password, setPassword] = useState("");
 
@@ -47,7 +44,8 @@ const LoginScreen = ({ navigation }) => {
 
       <TouchableOpacity
         style={styles.loginButton}
-        onPress={handleLogin}
+        //onPress={handleLogin}
+        onPress={() => navigation.navigate("Main")}
         //회원정보에 없는 아이디나 비밀번호를 입력하면 로그인 불가 알림창 뜸
       >
         <Text style={styles.loginButtonText}>로그인</Text>
