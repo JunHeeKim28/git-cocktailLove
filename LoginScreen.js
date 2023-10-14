@@ -45,14 +45,12 @@ const LoginScreen = ({ navigation }) => {
         secureTextEntry={true} // 비번 입력 시 별 표시
       />
 
-      <TouchableOpacity style={styles.loginButton}>
-        <Text
-          style={styles.loginButtonText}
-          onPress={handleLogin}
-          //회원정보에 없는 아이디나 비밀번호를 입력하면 로그인 불가 알림창 뜸
-        >
-          로그인
-        </Text>
+      <TouchableOpacity
+        style={styles.loginButton}
+        onPress={handleLogin}
+        //회원정보에 없는 아이디나 비밀번호를 입력하면 로그인 불가 알림창 뜸
+      >
+        <Text style={styles.loginButtonText}>로그인</Text>
       </TouchableOpacity>
       <View style={styles.buttonContainer}>
         <TouchableOpacity style={styles.btn2}>
@@ -103,6 +101,7 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontSize: 20,
     textAlign: "center",
+    justifyContent: "center",
   },
   buttonContainer: {
     flexDirection: "column", // Arrange buttons horizontally

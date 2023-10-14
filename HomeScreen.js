@@ -17,15 +17,11 @@ export default function HomeScreen() {
         style={styles.image}
       />
       <View style={styles.btnContainer}>
-        <TouchableOpacity style={styles.btn1}>
-          <Text style={styles.btnText1} onPress={goToLoginScreen}>
-            로그인
-          </Text>
+        <TouchableOpacity style={styles.btn1} onPress={goToLoginScreen}>
+          <Text style={styles.btnText1}>로그인</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.btn1}>
-          <Text style={styles.btnText1} onPress={goToRegisterScreen}>
-            회원가입
-          </Text>
+        <TouchableOpacity style={styles.btn1} onPress={goToRegisterScreen}>
+          <Text style={styles.btnText1}>회원가입</Text>
         </TouchableOpacity>
       </View>
 

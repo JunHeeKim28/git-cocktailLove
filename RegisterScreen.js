@@ -104,6 +104,7 @@ const styles = StyleSheet.create({
     height: 50,
     width: 100,
     marginBottom: 20,
+    justifyContent: "center",
   },
   registerbtnText: {
     color: "#fff",
