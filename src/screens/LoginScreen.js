@@ -94,12 +94,14 @@ const styles = StyleSheet.create({
     width: 100,
     marginBottom: 20,
     alignContent: "center",
+    justifyContent: "center",
   },
   loginButtonText: {
     color: "#fff",
     fontSize: 20,
     textAlign: "center",
     justifyContent: "center",
+    alignContent: "center",
   },
   buttonContainer: {
     flexDirection: "column", // Arrange buttons horizontally
