@@ -15,3 +15,22 @@
 // };
 
 // export default Navigation;
+
+import { StyleSheet } from "react-native";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import ListScreen from "../screens/ListScreen";
+import ProfileScreen from "../screens/ProfileScreen";
+import MainScreen from "../screens/MainScreen";
+
+const Tab = createBottomTabNavigator();
+
+const Navigation = () => {
+  return (
+    <Tab.Navigator>
+      <Tab.Screen name="List" component={ListScreen} />
+      <Tab.Screen name="Main" component={MainScreen} />
+      <Tab.Screen name="Profile" component={ProfileScreen} />
+    </Tab.Navigator>
+  );
+};
+export default Navigation;

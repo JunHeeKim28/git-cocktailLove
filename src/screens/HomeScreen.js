@@ -13,7 +13,7 @@ export default function HomeScreen() {
   return (
     <View style={styles.container}>
       <Image
-        source={require("./assets/cocktailLoveLogo.png")}
+        source={require("../screens/cocktailLoveLogo.png")}
         style={styles.image}
       />
       <View style={styles.btnContainer}>

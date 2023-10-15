@@ -23,7 +23,7 @@ const LoginScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <Image
-        source={require("./assets/cocktailLoveLogo.png")}
+        source={require("../screens/cocktailLoveLogo.png")}
         style={styles.image}
       />
       <TextInput
@@ -45,7 +45,7 @@ const LoginScreen = ({ navigation }) => {
       <TouchableOpacity
         style={styles.loginButton}
         //onPress={handleLogin}
-        onPress={() => navigation.navigate("Main")}
+        onPress={() => navigation.navigate("Navigation")}
         //회원정보에 없는 아이디나 비밀번호를 입력하면 로그인 불가 알림창 뜸
       >
         <Text style={styles.loginButtonText}>로그인</Text>
