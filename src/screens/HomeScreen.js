@@ -13,7 +13,7 @@ export default function HomeScreen() {
   return (
     <View style={styles.container}>
       <Image
-        source={require("../screens/cocktailLoveLogo.png")}
+        source={require("../../assets/cocktailLoveLogo.png")}
         style={styles.image}
       />
       <View style={styles.btnContainer}>
@@ -51,8 +51,8 @@ const styles = StyleSheet.create({
   },
   btn1: {
     backgroundColor: "#be289d",
-    paddingVertical: 15,
     borderRadius: 10,
+    paddingVertical: 15,
     marginHorizontal: 5,
     width: 140,
   },

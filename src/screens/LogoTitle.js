@@ -1,22 +1,34 @@
-import { StyleSheet, Image, View } from "react-native";
-
+import { StyleSheet, Image, View, Platform, Dimensions } from "react-native";
+const { width: screenWidth, height: screenHeight } = Dimensions.get("window"); // 화면 가로,
 const LogoTitle = () => {
   return (
-    <View style={StyleSheet.create}>
+    <View style={styles.imgcontainer}>
       <Image
-        source={require("../screens/cocktailLoveLogo.png")}
-        style={{ width: 40, height: 40 }}
-        resizeMode="center"
+        source={require("../../assets/cocktailLoveLogo.png")}
+        style={styles.logo}
+        resizeMode="contain"
       />
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
+  imgcontainer: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+    backgroundColor: "black",
+    ...Platform.select({
+      android: {
+        position: "absolute",
+        left: screenWidth / 2 - 40,
+        backgroundColor: "black",
+      },
+    }),
+  },
+  logo: {
+    width: 50,
+    height: 50,
   },
 });
 

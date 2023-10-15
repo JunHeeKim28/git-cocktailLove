@@ -1,21 +1,3 @@
-// import { NavigationContainer } from "@react-navigation/native";
-// import ContentTab from "./ContentTab";
-
-// const onReady = () => {
-//   // NaviationsContainer가 준비된 후에 실행할 코드를 여기에 작성하세요.
-//   console.log("NavigationContainer is ready!");
-// };
-
-// const Navigation = () => {
-//   return (
-//     <NavigationContainer onReady={onReady}>
-//       <ContentTab />
-//     </NavigationContainer>
-//   );
-// };
-
-// export default Navigation;
-
 import { StyleSheet } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import ListScreen from "../screens/ListScreen";
@@ -26,14 +8,29 @@ const Tab = createBottomTabNavigator();
 
 const Navigation = () => {
   return (
-    <Tab.Navigator>
-      <Tab.Screen name="List" component={ListScreen} />
+    <Tab.Navigator initialRouteName="Main">
+      <Tab.Screen
+        name="List"
+        component={ListScreen}
+        options={{
+          tabBarLabel: "이용내역",
+        }}
+      />
       <Tab.Screen
         name="Main"
         component={MainScreen}
-        options={{ headerTitle: () => <LogoTitle /> }}
+        options={{
+          headerTitle: () => <LogoTitle />,
+          tabBarLabel: "메인",
+        }}
       />
-      <Tab.Screen name="Profile" component={ProfileScreen} />
+      <Tab.Screen
+        name="Profile"
+        component={ProfileScreen}
+        options={{
+          tabBarLabel: "마이페이지",
+        }}
+      />
     </Tab.Navigator>
   );
 };

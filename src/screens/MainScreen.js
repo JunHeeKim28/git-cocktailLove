@@ -1,49 +1,76 @@
-/*
+import {
+  View,
+  TouchableOpacity,
+  Text,
+  StyleSheet,
+  Dimensions,
+} from "react-native";
 
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { View, Text, StyleSheet } from "react-native";
+const { width: screenWidth, height: screenHeight } = Dimensions.get("window"); // 화면 가로, 세로 길이
 
-const Tab = createBottomTabNavigator();
-
-function UsageScreen() {
-  return <Text>이용내역</Text>;
-}
-
-function MyPageScreen() {
-  return <Text>마이페이지</Text>;
-}
+const buttonSize = screenWidth / 2 - 10; // 버튼 가로 길이
+const buttonHeight = buttonSize / 2; // 버튼 세로 길이
 
 const MainScreen = () => {
   return (
-    <Tab.Navigator>
-      <Tab.Group>
-        <Tab.Screen name="이용내역" component={UsageScreen} />
-        <Tab.Screen name="마이페이지" component={MyPageScreen} />
-      </Tab.Group>
-      <View style={styles.container}>
-        <Text>하잉~~</Text>
+    <View style={styles.container}>
+      <View style={styles.buttonContainer}>
+        <TouchableOpacity
+          style={[
+            styles.button,
+            { width: buttonSize, height: buttonSize + 10 },
+          ]}
+        >
+          <Text style={styles.buttonText}>칵테일 제조</Text>
+        </TouchableOpacity>
+        <View style={styles.buttonColumn}>
+          <TouchableOpacity
+            style={[styles.button, { width: buttonSize, height: buttonHeight }]}
+          >
+            <Text style={styles.buttonText}>즐겨찾기</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={[styles.button, { width: buttonSize, height: buttonHeight }]}
+          >
+            <Text style={styles.buttonText}>이용방법</Text>
+          </TouchableOpacity>
+        </View>
       </View>
-    </Tab.Navigator>
-  );
-};
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-});
+      <TouchableOpacity
+        style={[
+          styles.button,
+          { width: buttonSize * 2, height: buttonSize + 10 },
+        ]}
+      >
+        <Text style={styles.buttonText}>실시간 인기 칵테일</Text>
+      </TouchableOpacity>
 
-export default MainScreen;
-*/
-/*
-import { View, Text, StyleSheet } from "react-native";
+      <View style={styles.buttonContainer}>
+        <TouchableOpacity
+          style={[styles.button, { width: buttonSize, height: buttonHeight }]}
+        >
+          <Text style={styles.buttonText}>기기등록</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={[styles.button, { width: buttonSize, height: buttonHeight }]}
+        >
+          <Text style={styles.buttonText}>칵테일 만족도 조사</Text>
+        </TouchableOpacity>
+      </View>
 
-const MainScreen = () => {
-  return (
-    <View style={styles.container}>
-      <Text>하잉~~~</Text>
+      <View style={styles.buttonContainer}>
+        <TouchableOpacity
+          style={[styles.button, { width: buttonSize, height: buttonHeight }]}
+        >
+          <Text style={styles.buttonText}>칵테일 리스트</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={[styles.button, { width: buttonSize, height: buttonHeight }]}
+        >
+          <Text style={styles.buttonText}>칵테일 리뷰</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
@@ -51,72 +78,27 @@ const MainScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-});
-
-export default MainScreen;
-*/
-/*
-import React from "react";
-import { View, Text, StyleSheet } from "react-native";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-
-const Tab = createBottomTabNavigator();
-
-const ListScreen = () => {
-  return (
-    <View style={styles.container}>
-      <Text>List Screen</Text>
-    </View>
-  );
-};
-
-const ProfileScreen = () => {
-  return (
-    <View style={styles.container}>
-      <Text>Profile Screen</Text>
-    </View>
-  );
-};
-
-const MainScreen = () => {
-  return (
-    <Tab.Navigator>
-      <Tab.Screen name="List" component={ListScreen} />
-      <Tab.Screen name="Profile" component={ProfileScreen} />
-    </Tab.Navigator>
-  );
-};
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
+    //justifyContent: "center",
     alignItems: "center",
     backgroundColor: "black",
   },
-});
-
-export default MainScreen;
-*/
-
-import { Image, StyleSheet, Text, View } from "react-native";
-
-const MainScreen = () => {
-  return (
-    <View style={StyleSheet.container}>
-      <Text> 하이원 </Text>
-    </View>
-  );
-};
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
+  buttonContainer: {
+    flexDirection: "row", // 가로로 나란히 배치
+  },
+  buttonColumn: {
+    alignItems: "center", // 세로 정렬
+  },
+  button: {
     justifyContent: "center",
     alignItems: "center",
+    margin: 5,
+    backgroundColor: "#be289d",
+    borderRadius: 10,
+  },
+  buttonText: {
+    color: "white",
+    fontSize: 16,
+    textAlign: "center",
   },
 });
 

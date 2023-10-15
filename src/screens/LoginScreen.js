@@ -23,7 +23,7 @@ const LoginScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <Image
-        source={require("../screens/cocktailLoveLogo.png")}
+        source={require("../../assets/cocktailLoveLogo.png")}
         style={styles.image}
       />
       <TextInput
