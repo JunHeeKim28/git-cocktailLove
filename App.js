@@ -3,9 +3,8 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import HomeScreen from "./src/screens/HomeScreen.js";
 import LoginScreen from "./src/screens/LoginScreen.js";
 import RegisterScreen from "./src/screens/RegisterScreen.js";
-//import MainScreen from "./src/screens/MainScreen.js";
 import Navigation from "./src/navigations/Navigation.js";
-
+import DeviceRegisterScreen from "./src/screens/DeviceRegisterScreen.js";
 const Stack = createNativeStackNavigator();
 
 export default function App() {
@@ -36,6 +35,13 @@ export default function App() {
             name="Navigation"
             component={Navigation}
             options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="DeviceRegister"
+            component={DeviceRegisterScreen}
+            options={{
+              headerTitle: "기기등록",
+            }}
           />
         </Stack.Group>
       </Stack.Navigator>

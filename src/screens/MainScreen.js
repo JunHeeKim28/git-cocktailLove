@@ -5,13 +5,18 @@ import {
   StyleSheet,
   Dimensions,
 } from "react-native";
-
+import { useNavigation } from "@react-navigation/native";
 const { width: screenWidth, height: screenHeight } = Dimensions.get("window"); // 화면 가로, 세로 길이
 
 const buttonSize = screenWidth / 2 - 10; // 버튼 가로 길이
 const buttonHeight = buttonSize / 2; // 버튼 세로 길이
 
 const MainScreen = () => {
+  const navigation = useNavigation();
+  const goToDeviceRegisterScreen = () => {
+    navigation.navigate("DeviceRegister");
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.buttonContainer}>
@@ -49,6 +54,7 @@ const MainScreen = () => {
       <View style={styles.buttonContainer}>
         <TouchableOpacity
           style={[styles.button, { width: buttonSize, height: buttonHeight }]}
+          onPress={goToDeviceRegisterScreen}
         >
           <Text style={styles.buttonText}>기기등록</Text>
         </TouchableOpacity>

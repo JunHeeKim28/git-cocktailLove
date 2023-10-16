@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useState } from "react";
 import {
   View,
@@ -5,9 +6,9 @@ import {
   TextInput,
   StyleSheet,
   TouchableOpacity,
-  KeyboardAvoidingView,
+  ScrollView,
+  Alert,
 } from "react-native";
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 const RegisterScreen = ({ navigation }) => {
   const [nickname, setNickname] = useState("");
@@ -16,19 +17,55 @@ const RegisterScreen = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
 
-  const handleRegister = () => {
-    // 여기에서 회원가입 로직을 구현합니다.
-    // 서버에 데이터를 보내고 회원가입 처리를 수행할 수 있습니다.
+  const [isRegistered, setIsRegistered] = useState(false);
 
-    // 예시: 각 입력 필드에서 얻은 데이터를 출력
-    console.log("Nickname:", nickname);
-    console.log("Username:", username);
-    console.log("Password:", password);
-    console.log("Email:", email);
+  const handleRegister = () => {
+    // 여기서 디비에 정보를 저장하는 로직을 구현해야 합니다.
+
+    // 저장이 완료되면 setIsRegistered(true)를 호출하여 상태를 변경합니다.
+    //setIsRegistered(true);
+
+    // 회원가입 완료 알림창을 띄웁니다.
+    /*
+    예시: 각 입력 필드에서 얻은 데이터를 출력
+    //console.log("Nickname:", nickname);
+    //console.log("Username:", username);
+    //console.log("Password:", password);
+    //console.log("Email:", email);
+    //console.log("Phone:", phone);
+    */
+
+    Alert.alert(
+      "회원가입 완료",
+      "회원가입이 완료되었습니다.",
+      [
+        {
+          text: "확인",
+          onPress: () => {
+            navigation.navigate("Login");
+          },
+        },
+        {
+          text: "취소",
+          onPress: () => {},
+        },
+      ],
+      { cancelable: false } // 바깥쪽 터치로 알림창을 닫지 못하게 설정
+    );
+
+    /*axios
+      .post("http://your-server-url/signup", { email, password })
+      .then((response) => {
+        console.log("Signup successful", response.data);
+      })
+      .catch((error) => {
+        console.error("Signup error", error);
+      });
+      */
   };
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <Text style={styles.label}>닉네임</Text>
       <TextInput
         style={styles.input}
@@ -66,15 +103,16 @@ const RegisterScreen = ({ navigation }) => {
         <TouchableOpacity style={styles.registerbtn}>
           <Text
             style={styles.registerbtnText}
-            //onPress={handleRegister}
-            onPress={() => navigation.navigate("Login")}
+            //onPress={() => registerAlert()}
+            onPress={handleRegister}
+            //onPress={() => navigation.navigate("Login")}
             //이메일 또는 아이디가 이미 디비에 저장되어 있다면 회원가입 안됨
           >
             회원가입
           </Text>
         </TouchableOpacity>
       </View>
-    </View>
+    </ScrollView>
   );
 };
 
