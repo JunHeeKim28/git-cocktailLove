@@ -13,6 +13,7 @@ const buttonHeight = buttonSize / 2; // 버튼 세로 길이
 
 const MainScreen = () => {
   const navigation = useNavigation();
+
   const goToDeviceRegisterScreen = () => {
     navigation.navigate("DeviceRegister");
   };
@@ -25,6 +26,7 @@ const MainScreen = () => {
             styles.button,
             { width: buttonSize, height: buttonSize + 10 },
           ]}
+          onPress={goToDeviceRegisterScreen}
         >
           <Text style={styles.buttonText}>칵테일 제조</Text>
         </TouchableOpacity>
@@ -54,7 +56,6 @@ const MainScreen = () => {
       <View style={styles.buttonContainer}>
         <TouchableOpacity
           style={[styles.button, { width: buttonSize, height: buttonHeight }]}
-          onPress={goToDeviceRegisterScreen}
         >
           <Text style={styles.buttonText}>기기등록</Text>
         </TouchableOpacity>
