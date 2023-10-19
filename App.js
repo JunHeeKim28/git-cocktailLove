@@ -7,9 +7,12 @@ import Navigation from "./src/navigations/Navigation.js";
 import DeviceRegisterScreen from "./src/screens/DeviceRegisterScreen.js";
 import ConnectedDeviceScreen from "./src/screens/ConnectedDeviceScreen.js";
 import BluetoothConnectScreen from "./src/screens/BluetoothConnectScreen.js";
-const Stack = createNativeStackNavigator();
+import ProfileDeleteScreen from "./src/screens/ProfileDeleteScreen.js";
+import FavoritesScreen from "./src/screens/FavoritesScreen.js";
+import CocktailRecipeScreen from "./src/screens/CocktailRecipeScreen.js";
 
 export default function App() {
+  const Stack = createNativeStackNavigator();
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Home">
@@ -52,6 +55,27 @@ export default function App() {
           <Stack.Screen
             name="BluetoothConnect"
             component={BluetoothConnectScreen}
+          />
+          <Stack.Screen
+            name="ProfileDelete"
+            component={ProfileDeleteScreen}
+            options={{
+              headerTitle: "회원 탈퇴",
+            }}
+          />
+          <Stack.Screen
+            name="Favorites"
+            component={FavoritesScreen}
+            options={{
+              headerTitle: "즐겨찾기",
+            }}
+          />
+          <Stack.Screen
+            name="CocktailRecipe"
+            component={CocktailRecipeScreen}
+            options={{
+              headerTitle: "칵테일 레시피",
+            }}
           />
         </Stack.Group>
       </Stack.Navigator>

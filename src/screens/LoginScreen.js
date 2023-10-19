@@ -8,6 +8,8 @@ import {
   Text,
   View,
 } from "react-native";
+import axios from "axios";
+import { Alert } from "react-native";
 //import { useNavigation } from "@react-navigation/native";
 
 //export default function LoginScreen() {
@@ -16,10 +18,34 @@ const LoginScreen = ({ navigation }) => {
   const [password, setPassword] = useState("");
 
   const handleLogin = () => {
-    console.log("아이디: ", userId);
-    console.log("비밀번호: ", password);
+    axios
+      .post("http://ceprj.gachon.ac.kr:60005/user/login", {
+        userId,
+        password,
+      })
+      .then((response) => {
+        console.log("Login successful", response.data);
+        if (response.data.success) {
+          // 로그인 성공시 다른 화면으로 이동 등의 로직 구현
+          navigation.navigate("Navigation");
+        } else {
+          Alert.alert(
+            "로그인 오류",
+            "아이디나 비밀번호가 올바르지 않습니다.",
+            [
+              {
+                text: "확인",
+                onPress: () => {},
+              },
+            ],
+            { cancelable: false }
+          );
+        }
+      })
+      .catch((error) => {
+        console.error("Login error", error);
+      });
   };
-
   return (
     <View style={styles.container}>
       <Image
@@ -42,12 +68,7 @@ const LoginScreen = ({ navigation }) => {
         secureTextEntry={true} // 비번 입력 시 별 표시
       />
 
-      <TouchableOpacity
-        style={styles.loginButton}
-        //onPress={handleLogin}
-        onPress={() => navigation.navigate("Navigation")}
-        //회원정보에 없는 아이디나 비밀번호를 입력하면 로그인 불가 알림창 뜸
-      >
+      <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
         <Text style={styles.loginButtonText}>로그인</Text>
       </TouchableOpacity>
       <View style={styles.buttonContainer}>

@@ -29,6 +29,7 @@ const Navigation = () => {
         component={ProfileScreen}
         options={{
           tabBarLabel: "마이페이지",
+          headerShown: false,
         }}
       />
     </Tab.Navigator>

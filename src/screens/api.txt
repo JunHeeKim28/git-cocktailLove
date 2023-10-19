@@ -1,0 +1,52 @@
+var express = require('express');
+var cors = require('cors');
+const bodyParser = require('body-parser');
+const db = require('./lib/db');  // 여기서 db.js를 가져옵니다.
+
+const app = express();
+const port = 60005;
+
+// CORS 미들웨어 설정
+app.use(cors({
+    origin: 'http://localhost:19006' // 여기에 허용하려는 도메인을 추가
+}));
+// app.use(cors({
+//     origin: 'http://ceprj.gachon.ac.kr:60005/' // 여기에 허용하려는 도메인을 추가
+// }));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
+// 회원가입
+app.post('/user/create_process', (req, res) => {
+    const { nickname, username, password, email, phone } = req.body;
+
+    // 데이터 유효성 검사는 필요에 따라 추가할 수 있습니다.
+    const sql = `
+        INSERT INTO USER (U_NICKNAME, U_ID, U_PASSWORD, U_EMAIL, U_PHONE)
+        VALUES (?, ?, ?, ?, ?)
+    `;
+
+    db.query(sql, [nickname, username, password, email, phone], (err, result) => {
+        if (err) {
+            console.error(err);
+            return res.status(500).send('Database error.');
+        }
+
+        res.send('User registered successfully.');
+    });
+});
+
+app.get('/test/just_test', (req, res) => {
+    console.log(req.query);
+
+    const userId = req.query.userId;
+    const incrementedUserId = Number(userId) + 1;
+    res.send(incrementedUserId.toString());
+});
+
+// 로그인 
+
+
+app.listen(port, () => {
+    console.log(`Server started on port ${port}`);
+}); 

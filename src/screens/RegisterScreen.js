@@ -20,48 +20,55 @@ const RegisterScreen = ({ navigation }) => {
   const [isRegistered, setIsRegistered] = useState(false);
 
   const handleRegister = () => {
-    // 여기서 디비에 정보를 저장하는 로직을 구현해야 합니다.
-
-    // 저장이 완료되면 setIsRegistered(true)를 호출하여 상태를 변경합니다.
-    //setIsRegistered(true);
-
-    // 회원가입 완료 알림창을 띄웁니다.
-    /*
-    예시: 각 입력 필드에서 얻은 데이터를 출력
-    //console.log("Nickname:", nickname);
-    //console.log("Username:", username);
-    //console.log("Password:", password);
-    //console.log("Email:", email);
-    //console.log("Phone:", phone);
-    */
-
-    Alert.alert(
-      "회원가입 완료",
-      "회원가입이 완료되었습니다.",
-      [
+    //하나라도 없는 경우
+    if (!nickname || !username || !password || !email || !phone) {
+      Alert.alert("회원가입 오류", "모든 항목을 채워주세요.", [
         {
           text: "확인",
-          onPress: () => {
-            navigation.navigate("Login");
-          },
-        },
-        {
-          text: "취소",
           onPress: () => {},
         },
-      ],
-      { cancelable: false } // 바깥쪽 터치로 알림창을 닫지 못하게 설정
-    );
-
-    /*axios
-      .post("http://your-server-url/signup", { email, password })
+      ]);
+      return;
+    }
+    axios
+      .post("http://ceprj.gachon.ac.kr:60005/user/create_process", {
+        nickname,
+        username,
+        password,
+        email,
+        phone,
+      })
       .then((response) => {
         console.log("Signup successful", response.data);
+        setIsRegistered(true); // 서버 응답이 성공적이면 상태 변경
+        Alert.alert(
+          "회원가입 완료",
+          "회원가입이 완료되었습니다.",
+          [
+            {
+              text: "확인",
+              onPress: () => {
+                navigation.navigate("Login");
+              },
+            },
+          ],
+          { cancelable: false } // 바깥쪽 터치로 알림창을 닫지 못하게 설정
+        );
       })
       .catch((error) => {
         console.error("Signup error", error);
+        Alert.alert(
+          "회원가입 오류",
+          "회원가입 중 오류가 발생했습니다.",
+          [
+            {
+              text: "확인",
+              onPress: () => {},
+            },
+          ],
+          { cancelable: false }
+        );
       });
-      */
   };
 
   return (

@@ -1,0 +1,123 @@
+var express = require('express');
+var app = express();
+var ip = require('ip');
+var session = require('express-session');
+app.set('views',__dirname + '/views');
+app.set('view engine', 'ejs');
+var db = require('./lib/db.js');
+var etc = require('./lib/etc');
+var auth = require('./lib/authentication');
+const board = require('./lib/board.js');
+var cocktail = require('./lib/cocktail.js');
+var MySqlStore = require('express-mysql-session')(session);
+var options = {
+    host : 'localhost',
+    port: 3306,
+    user : 'dbid232',
+    password : 'dbpass232',
+    database : 'db23205',
+};
+var sessionStore = new MySqlStore(options);
+app.use(express.static('public'));
+app.use(session({
+    secret: 'duckkeyboardredcat',
+    resave: false,
+    saveUninitialized: true,
+    store : sessionStore
+}));
+
+
+
+app.get('/user', function(request, response){
+    etc.userHome(request, response);
+})
+app.get('/user/create', function(request, response){
+    etc.userCreate(request, response);
+})
+app.post('/user/create_process', function(request, response){
+    etc.userCreate_process(request, response);
+})
+app.get('/user/list', function(request, response){
+    etc.userList(request, response);
+})
+app.get('/user/update/:planId', function(request, response){
+    etc.userUpdate(request, response);
+})
+app.post('/user/update_process/:planId', function(request, response){
+    etc.userUpdate_process(request, response);
+})
+app.get('/user/delete_process/:planId', function(request, response){
+    etc.userDelete_process(request, response);
+})
+
+
+
+app.get('/login', function(request, response){
+    auth.login(request, response);
+})
+app.post('/login_process', function(request, response){
+    auth.login_process(request, response);
+})
+app.get('/logout',function(request, response){
+    auth.logout(request, response);
+}) ;
+app.get('/register', function(request, response){
+    auth.register(request, response);
+})
+app.post('/register_process', function(request, response){
+    auth.register_process(request, response);
+})
+app.get('/changepw', function(request, response){
+    auth.changepw(request, response);
+})
+app.post('/changepw_process', function(request, response){
+    auth.changepw_process(request, response);
+})
+
+
+app.get('/board/list/:pNum', function(request, response){
+    board.list(request, response);
+})
+app.get('/board/view/:bNum/:pNum', function(request, response){
+    board.view(request, response);
+})
+app.get('/board/create', function(request, response){
+    board.create(request, response);
+})
+app.post('/board/create_process', function(request, response){
+    board.create_process(request, response);
+})
+app.get('/board/update/:bNum/:pNum', function(request, response){
+    board.update(request, response);
+})
+app.post('/board/update_process', function(request, response){
+    board.update_process(request, response);
+})
+app.get('/board/delete/:bNum/:pNum', function(request, response){
+    board.delete(request, response);
+})
+
+
+app.get('/cocktail/manage', function(request, response){
+    cocktail.manage(request, response);
+})
+app.get('/cocktail/addition', function(request, response){
+    cocktail.addition(request, response);
+})
+app.get('/cocktail/update/:ctId', function(request, response){
+    cocktail.update(request, response);
+})
+app.post('/cocktail/update_process/:ctId', function(request, response){
+    cocktail.update_process(request, response);
+})
+app.post('/cocktail/addition_process', function(request, response){
+    cocktail.addition_process(request, response);
+})
+app.get('/cocktail/delete_process/:ctId', function(request, response){
+    cocktail.delete_process(request, response);
+})
+
+
+app.listen(60005, () => 
+console.log("접속 주소 : ceprj.gachon.ac.kr:60005/login"))
+

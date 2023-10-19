@@ -10,6 +10,7 @@ export default function HomeScreen() {
   const goToRegisterScreen = () => {
     navigation.navigate("Register");
   };
+
   return (
     <View style={styles.container}>
       <Image

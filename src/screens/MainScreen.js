@@ -6,6 +6,7 @@ import {
   Dimensions,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import CocktailRecipeScreen from "./CocktailRecipeScreen";
 const { width: screenWidth, height: screenHeight } = Dimensions.get("window"); // 화면 가로, 세로 길이
 
 const buttonSize = screenWidth / 2 - 10; // 버튼 가로 길이
@@ -18,6 +19,13 @@ const MainScreen = () => {
     navigation.navigate("DeviceRegister");
   };
 
+  const gotoFavoritesScreen = () => {
+    navigation.navigate("Favorites");
+  };
+
+  const gotoCocktailRecipeScreen = () => {
+    navigation.navigate("CocktailRecipe");
+  };
   return (
     <View style={styles.container}>
       <View style={styles.buttonContainer}>
@@ -33,6 +41,7 @@ const MainScreen = () => {
         <View style={styles.buttonColumn}>
           <TouchableOpacity
             style={[styles.button, { width: buttonSize, height: buttonHeight }]}
+            onPress={gotoFavoritesScreen}
           >
             <Text style={styles.buttonText}>즐겨찾기</Text>
           </TouchableOpacity>
@@ -69,8 +78,9 @@ const MainScreen = () => {
       <View style={styles.buttonContainer}>
         <TouchableOpacity
           style={[styles.button, { width: buttonSize, height: buttonHeight }]}
+          onPress={gotoCocktailRecipeScreen}
         >
-          <Text style={styles.buttonText}>칵테일 리스트</Text>
+          <Text style={styles.buttonText}>칵테일 레시피</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={[styles.button, { width: buttonSize, height: buttonHeight }]}
