@@ -198,19 +198,24 @@ export default function CocktailRecipeScreen() {
         {recipeList.map((recipe, index) => (
           <View key={index} style={styles.recipeItem}>
             {/* 삭제 버튼 */}
-            <TouchableOpacity
-              onPress={() => deleteRecipe(index)}
-              style={styles.deleteButton}
-            >
-              <Text style={styles.deleteButtonText}>삭제</Text>
-            </TouchableOpacity>
+            <View style={styles.btnContainer}>
+              <TouchableOpacity
+                onPress={() => deleteRecipe(index)}
+                style={styles.deleteButton}
+              >
+                <Text style={styles.deleteButtonText}>삭제</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.makeButton}>
+                <Text style={styles.deleteButtonText}>제조</Text>
+              </TouchableOpacity>
+            </View>
 
             {/* 레시피 제목 */}
             <Text style={styles.recipeTitle}>제목: {recipe.title}</Text>
 
             {/* 레시피 용량 */}
             <View style={styles.recipeContent}>
-              <Text style={styles.recipeSubtitle}>용량:</Text>
+              {/* <Text style={styles.recipeSubtitle}>용량:</Text> */}
               {Object.keys(recipe).map((ingredient) => {
                 if (ingredient !== "title" && recipe[ingredient] !== "0ml") {
                   return (
@@ -251,6 +256,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   addBtnTxt: { color: "white" },
+  btnContainer: {
+    flexDirection: "row",
+  },
   modalContainer: {
     flex: 1,
     justifyContent: "center",
@@ -286,12 +294,19 @@ const styles = StyleSheet.create({
     marginLeft: 20,
   },
   recipeItem: {
-    flexDirection: "row",
+    //flexDirection: "row",
     alignItems: "center",
     marginVertical: 10,
   },
+  recipeSubtitle: {},
   deleteButton: {
     backgroundColor: "red",
+    padding: 5,
+    borderRadius: 5,
+    marginRight: 10,
+  },
+  makeButton: {
+    backgroundColor: "blue",
     padding: 5,
     borderRadius: 5,
     marginRight: 10,
