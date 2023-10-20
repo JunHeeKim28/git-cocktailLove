@@ -3,7 +3,7 @@ import { View, Alert, Text, StyleSheet } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-
+import axios from "axios";
 const ProfileScreen = () => {
   const navigation = useNavigation();
   //로그아웃
@@ -19,9 +19,23 @@ const ProfileScreen = () => {
         {
           text: "확인",
           onPress: async () => {
-            // 로그아웃 처리 및 홈 화면으로 이동
-            await AsyncStorage.removeItem("userToken"); // 로그인 토큰 삭제
-            navigation.navigate("Home");
+            try {
+              const response = await axios.post(
+                "http://ceprj.gachon.ac.kr:60005/user/logout"
+              );
+
+              if (response.data.success) {
+                navigation.navigate("Home");
+              } else {
+                Alert.alert("로그아웃 오류", "로그아웃에 실패했습니다.");
+              }
+            } catch (error) {
+              console.error("로그아웃 오류", error);
+              Alert.alert(
+                "로그아웃 오류",
+                "로그아웃 중에 오류가 발생했습니다."
+              );
+            }
           },
         },
       ],

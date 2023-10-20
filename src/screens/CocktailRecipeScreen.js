@@ -7,6 +7,7 @@ import {
   StyleSheet,
   ScrollView,
   TouchableOpacity,
+  Alert,
 } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -62,8 +63,30 @@ export default function CocktailRecipeScreen() {
     const newRecipe = { ...ingredients };
     const updatedRecipes = [...recipeList, newRecipe];
     setRecipeList(updatedRecipes);
-    saveRecipesToStorage(updatedRecipes);
+    saveRecipesToStorage(updatedRecipes); //storage부분
     setModalVisible(false);
+  };
+  const deleteRecipe = (index) => {
+    Alert.alert(
+      "레시피 삭제",
+      "선택한 레시피를 삭제하시겠습니까?",
+      [
+        {
+          text: "취소",
+          style: "cancel",
+        },
+        {
+          text: "확인",
+          onPress: () => {
+            const updatedRecipes = [...recipeList];
+            updatedRecipes.splice(index, 1); // 선택한 레시피 삭제
+            setRecipeList(updatedRecipes);
+            saveRecipesToStorage(updatedRecipes);
+          },
+        },
+      ],
+      { cancelable: false }
+    );
   };
   return (
     <View style={styles.container}>
@@ -147,19 +170,33 @@ export default function CocktailRecipeScreen() {
           </ScrollView>
         </View>
       </Modal>
+
       <ScrollView>
         {recipeList.map((recipe, index) => (
-          <Text key={index} style={styles.recipeTxt}>
-            {Object.keys(recipe).map((ingredient) => {
-              if (recipe[ingredient] !== "0ml") {
-                return `${ingredient}: ${recipe[ingredient]}  `;
-              } else {
-                return null;
-              }
-            })}
-          </Text>
+          <View key={index} style={styles.recipeItem}>
+            {/*삭제버튼*/}
+            <TouchableOpacity
+              onPress={() => deleteRecipe(index)}
+              style={styles.deleteButton}
+            >
+              <Text style={styles.deleteButtonText}>삭제</Text>
+            </TouchableOpacity>
+            {/*레시피*/}
+            <ScrollView>
+              <Text style={styles.recipeTxt}>
+                {Object.keys(recipe).map((ingredient) => {
+                  if (recipe[ingredient] !== "0ml") {
+                    return `${ingredient}: ${recipe[ingredient]}  `;
+                  } else {
+                    return null;
+                  }
+                })}
+              </Text>
+            </ScrollView>
+          </View>
         ))}
       </ScrollView>
+      {/*레시피추가 버튼*/}
       <TouchableOpacity style={styles.addBtn} onPress={toggleModal}>
         <Text style={styles.addBtnTxt}>레시피 추가</Text>
       </TouchableOpacity>
@@ -171,6 +208,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingHorizontal: 10,
+    backgroundColor: "white",
   },
   addBtn: {
     backgroundColor: "lightblue",
@@ -210,5 +248,19 @@ const styles = StyleSheet.create({
   recipeTxt: {
     fontSize: 18,
     marginTop: 20,
+  },
+  recipeItem: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginVertical: 10,
+  },
+  deleteButton: {
+    backgroundColor: "red",
+    padding: 5,
+    borderRadius: 5,
+    marginRight: 10,
+  },
+  deleteButtonText: {
+    color: "white",
   },
 });
