@@ -11,11 +11,13 @@ import {
 } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-
+import { TextInput } from "react-native";
 export default function CocktailRecipeScreen() {
   const [isModalVisible, setModalVisible] = useState(false);
   const [ingredients, setIngredients] = useState({});
   const [recipeList, setRecipeList] = useState([]);
+  const [recipeTitle, setRecipeTitle] = useState("");
+  //const [recipeDescription, setRecipeDescription] = useState("");
   const STORAGE_KEY = "cocktailRecipes"; // AsyncStorage에 저장할 키
 
   useEffect(() => {
@@ -52,6 +54,8 @@ export default function CocktailRecipeScreen() {
       자몽주스: "0ml",
       라임주스: "0ml",
     });
+    setRecipeTitle(""); // 레시피 제목 초기화
+    //setRecipeDescription(""); // 레시피 설명 초기화
     setModalVisible(!isModalVisible);
   };
 
@@ -60,12 +64,17 @@ export default function CocktailRecipeScreen() {
   };
 
   const saveRecipe = () => {
-    const newRecipe = { ...ingredients };
+    const newRecipe = {
+      title: recipeTitle, // 레시피 제목
+      //description: recipeDescription, // 레시피 설명
+      ...ingredients,
+    };
     const updatedRecipes = [...recipeList, newRecipe];
     setRecipeList(updatedRecipes);
-    saveRecipesToStorage(updatedRecipes); //storage부분
+    saveRecipesToStorage(updatedRecipes);
     setModalVisible(false);
   };
+
   const deleteRecipe = (index) => {
     Alert.alert(
       "레시피 삭제",
@@ -93,6 +102,13 @@ export default function CocktailRecipeScreen() {
       <Modal visible={isModalVisible} transparent={true} animationType="slide">
         <View style={styles.modalContainer}>
           <ScrollView style={{ marginTop: 130 }}>
+            <Text style={styles.recipeTitleLabel}>레시피 제목:</Text>
+            <TextInput
+              style={styles.recipeTitleInput}
+              value={recipeTitle}
+              onChangeText={(text) => setRecipeTitle(text)}
+              placeholder="레시피 제목을 입력하세요"
+            />
             <View style={styles.pickerContainer}>
               <Text style={styles.pickerLabel}>위스키:</Text>
               <Picker
@@ -165,6 +181,13 @@ export default function CocktailRecipeScreen() {
                 <Picker.Item label="90ml" value="90ml" />
               </Picker>
             </View>
+            {/* <Text style={styles.recipeDescriptionLabel}>레시피 설명:</Text>
+            <TextInput
+              style={styles.recipeDescriptionInput}
+              value={recipeDescription}
+              onChangeText={(text) => setRecipeDescription(text)}
+              placeholder="레시피 설명을 입력하세요"
+            /> */}
             <Button title="재료 저장" onPress={saveRecipe} />
             <Button title="닫기" onPress={toggleModal} />
           </ScrollView>
@@ -174,28 +197,36 @@ export default function CocktailRecipeScreen() {
       <ScrollView>
         {recipeList.map((recipe, index) => (
           <View key={index} style={styles.recipeItem}>
-            {/*삭제버튼*/}
+            {/* 삭제 버튼 */}
             <TouchableOpacity
               onPress={() => deleteRecipe(index)}
               style={styles.deleteButton}
             >
               <Text style={styles.deleteButtonText}>삭제</Text>
             </TouchableOpacity>
-            {/*레시피*/}
-            <ScrollView>
-              <Text style={styles.recipeTxt}>
-                {Object.keys(recipe).map((ingredient) => {
-                  if (recipe[ingredient] !== "0ml") {
-                    return `${ingredient}: ${recipe[ingredient]}  `;
-                  } else {
-                    return null;
-                  }
-                })}
-              </Text>
-            </ScrollView>
+
+            {/* 레시피 제목 */}
+            <Text style={styles.recipeTitle}>제목: {recipe.title}</Text>
+
+            {/* 레시피 용량 */}
+            <View style={styles.recipeContent}>
+              <Text style={styles.recipeSubtitle}>용량:</Text>
+              {Object.keys(recipe).map((ingredient) => {
+                if (ingredient !== "title" && recipe[ingredient] !== "0ml") {
+                  return (
+                    <Text key={ingredient} style={styles.recipeTxt}>
+                      {`${ingredient}: ${recipe[ingredient]}`}
+                    </Text>
+                  );
+                } else {
+                  return null;
+                }
+              })}
+            </View>
           </View>
         ))}
       </ScrollView>
+
       {/*레시피추가 버튼*/}
       <TouchableOpacity style={styles.addBtn} onPress={toggleModal}>
         <Text style={styles.addBtnTxt}>레시피 추가</Text>
@@ -227,12 +258,13 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
   },
   pickerContainer: {
+    //pickerLabel: + 용량선택 드롭다운
     flexDirection: "row",
     alignItems: "center",
-    marginVertical: 10,
     marginTop: 5,
   },
   pickerLabel: {
+    //위스키:, 레몬주스: ,등등
     marginRight: 10,
     fontSize: 20,
   },
@@ -241,13 +273,17 @@ const styles = StyleSheet.create({
     height: 40,
   },
   recipeTitle: {
+    //제목:
     fontSize: 18,
     fontWeight: "bold",
     marginVertical: 10,
   },
   recipeTxt: {
     fontSize: 18,
-    marginTop: 20,
+    marginTop: 5,
+  },
+  recipeContent: {
+    marginLeft: 20,
   },
   recipeItem: {
     flexDirection: "row",
@@ -262,5 +298,18 @@ const styles = StyleSheet.create({
   },
   deleteButtonText: {
     color: "white",
+  },
+  recipeTitleLabel: {
+    //모달창 레시피제목:
+    fontSize: 20,
+    marginVertical: 10,
+  },
+  recipeTitleInput: {
+    borderWidth: 1,
+    borderColor: "#ccc",
+    borderRadius: 5,
+    height: 40,
+    paddingLeft: 10,
+    marginBottom: 20,
   },
 });
