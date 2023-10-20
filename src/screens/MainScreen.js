@@ -7,6 +7,7 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import CocktailRecipeScreen from "./CocktailRecipeScreen";
+import RealTimeScreen from "./RealTimeScreen";
 const { width: screenWidth, height: screenHeight } = Dimensions.get("window"); // 화면 가로, 세로 길이
 
 const buttonSize = screenWidth / 2 - 10; // 버튼 가로 길이
@@ -25,6 +26,10 @@ const MainScreen = () => {
 
   const gotoCocktailRecipeScreen = () => {
     navigation.navigate("CocktailRecipe");
+  };
+
+  const gotoRealTimeScreen = () => {
+    navigation.navigate("RealTime");
   };
   return (
     <View style={styles.container}>
@@ -58,6 +63,7 @@ const MainScreen = () => {
           styles.button,
           { width: buttonSize * 2, height: buttonSize + 10 },
         ]}
+        onPress={gotoRealTimeScreen}
       >
         <Text style={styles.buttonText}>실시간 인기 칵테일</Text>
       </TouchableOpacity>

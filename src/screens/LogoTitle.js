@@ -17,12 +17,12 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "black",
+    //backgroundColor: "black",
     ...Platform.select({
       android: {
         position: "absolute",
         left: screenWidth / 2 - 40,
-        backgroundColor: "black",
+        //backgroundColor: "black",
       },
     }),
   },

@@ -10,6 +10,7 @@ import BluetoothConnectScreen from "./src/screens/BluetoothConnectScreen.js";
 import ProfileDeleteScreen from "./src/screens/ProfileDeleteScreen.js";
 import FavoritesScreen from "./src/screens/FavoritesScreen.js";
 import CocktailRecipeScreen from "./src/screens/CocktailRecipeScreen.js";
+import RealTimeScreen from "./src/screens/RealTimeScreen.js";
 
 export default function App() {
   const Stack = createNativeStackNavigator();
@@ -75,6 +76,13 @@ export default function App() {
             component={CocktailRecipeScreen}
             options={{
               headerTitle: "칵테일 레시피",
+            }}
+          />
+          <Stack.Screen
+            name="RealTime"
+            component={RealTimeScreen}
+            options={{
+              headerTitle: "실시간 인기 칵테일",
             }}
           />
         </Stack.Group>

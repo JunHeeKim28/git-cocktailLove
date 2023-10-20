@@ -8,7 +8,18 @@ const Tab = createBottomTabNavigator();
 
 const Navigation = () => {
   return (
-    <Tab.Navigator initialRouteName="Main">
+    <Tab.Navigator
+      initialRouteName="Main"
+      screenOptions={{
+        tabBarStyle: {
+          backgroundColor: "black", // 탭 네비게이터의 배경색을 검정색으로 설정
+          height: 60,
+        },
+        tabBarLabelStyle: {
+          color: "white", // 탭 라벨 텍스트 색상을 흰색으로 설정
+        },
+      }}
+    >
       <Tab.Screen
         name="List"
         component={ListScreen}
@@ -22,6 +33,9 @@ const Navigation = () => {
         options={{
           headerTitle: () => <LogoTitle />,
           tabBarLabel: "메인",
+          headerStyle: {
+            backgroundColor: "black",
+          },
         }}
       />
       <Tab.Screen
